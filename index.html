@@ -20,11 +20,7 @@
       </div>
       <div class="dropdown">
         <button class="dropbtn">Your Watercolor Dreams ▼</button>
-        <div class="dropdown-content">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-        </div>
+        <div class="dropdown-content"></div>
       </div>
     </div>
         
@@ -43,13 +39,13 @@
       }
       
       function updateAssetList(responseString) {
-        let assets = JSON.parse(responseString);
-        for (let asset in assets.assets) {
-          console.log(asset);
-          let node = document.createElement("A");
-          node.innerText = asset.token_id;
-          console.log(node);
-          assetsList.appendChild(node);
+        let assets = JSON.parse(responseString).assets;
+        for (let i = 0; i < assets.length; i++) {
+          console.log(assets[i]);
+//           let node = document.createElement("A");
+//           node.innerText = asset.token_id;
+//           console.log(node);
+//           assetsList.appendChild(node);
         }
       }
       

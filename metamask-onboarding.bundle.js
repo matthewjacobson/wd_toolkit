@@ -2277,11 +2277,6 @@ var MetaMaskOnboarding = (function () {
       }
     }
 
-    var Bowser$1 = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        'default': Bowser
-    });
-
     var ONBOARDING_STATE = {
         INSTALLED: 'INSTALLED',
         NOT_INSTALLED: 'NOT_INSTALLED',
@@ -2445,7 +2440,7 @@ var MetaMaskOnboarding = (function () {
             (_a = document.getElementById(FORWARDER_ID)) === null || _a === void 0 ? void 0 : _a.remove();
         };
         Onboarding._detectBrowser = function () {
-            var browserInfo = undefined(window.navigator.userAgent);
+            var browserInfo = Bowser.parse(window.navigator.userAgent);
             if (browserInfo.browser.name === 'Firefox') {
                 return 'FIREFOX';
             }

@@ -128,8 +128,8 @@
           pg.push(),pg.translate(-.5*ss,-.5*ss);let s=!0;for(let e=0;e<flows.length;e++)flows[e].age<flows[e].lifespan&&(flows[e].update(),flows[e].isv?flows[e].drawVariegated(pg,isWavey):flows[e].drawGraded(pg,isWavey),s=!1);pg.pop(),isInverted?(shaderPg.invertShader.setUniform("tex",pg),shaderPg.rect(-.5*ss,-.5*ss,ss,ss),image(shaderPg,-.5*min(width,height),-.5*min(width,height),min(width,height),min(width,height))):image(pg,-.5*min(width,height),-.5*min(width,height),min(width,height),min(width,height)),s&&isRendering&&(console.log("done!"),isRendering=!1);
 
           if (!isRendering) {
-            if (isInverted) save(shaderPg, (tokenData.hash + '.png');
-            else save(pg, (tokenData.hash + '.png');
+            if (isInverted) save(shaderPg, tokenData.hash + '.png');
+            else save(pg, tokenData.hash + '.png');
             isStarted = false;
           }
         }

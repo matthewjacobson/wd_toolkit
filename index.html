@@ -31,6 +31,10 @@
     <script src="./metamask-onboarding.bundle.js"></script>
     <script>
       
+      function getAssetsInWallet(walletAddress) {
+        console.log(walletAddress);
+      }
+      
       window.addEventListener('DOMContentLoaded', () => {
         const onboarding = new MetaMaskOnboarding();
         const onboardButton = document.getElementsByClassName("metamask")[0];
@@ -45,11 +49,11 @@
               onboarding.startOnboarding();
             };
           } else {
-//             accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
             if (accounts && accounts.length > 0) {
               onboardButton.innerText = 'Connected';
               onboardButton.disabled = true;
               onboarding.stopOnboarding();
+              getAssetsInWallet(accounts[0]);
             } else {
               onboardButton.innerText = 'Connect';
               onboardButton.onclick = async () => {

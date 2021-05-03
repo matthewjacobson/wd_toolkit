@@ -31,8 +31,21 @@
     <script src="./metamask-onboarding.bundle.js"></script>
     <script>
       
+      function httpGetAsync(theUrl, callback) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) callback(xmlHttp.responseText);
+        }
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+        xmlHttp.send(null);
+      }
+      
+      functioin updateAssetList(assets) {
+        console.log(assets);
+      }
+      
       function getAssetsInWallet(walletAddress) {
-        console.log(walletAddress);
+        httpGetAsync('https://api.opensea.io/api/v1/assets?order_direction=desc&offset=0&limit=20&owner=' + walletAddress, updateAssetList);
       }
       
       window.addEventListener('DOMContentLoaded', () => {

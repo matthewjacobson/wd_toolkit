@@ -31,6 +31,8 @@
     <script src="./metamask-onboarding.bundle.js"></script>
     <script>
       
+      let assetsList = document.getElementsByClassName("dropdown-content")[0];
+      
       function httpGetAsync(theUrl, callback) {
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.onreadystatechange = function() { 
@@ -41,7 +43,11 @@
       }
       
       function updateAssetList(assets) {
-        console.log(assets);
+        for (let asset in assets.assets) {
+          let node = document.createElement("a");
+          node.innerText = asset.token_id;
+          assetsList.appendChild(node);
+        }
       }
       
       function getAssetsInWallet(walletAddress) {

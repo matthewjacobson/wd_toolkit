@@ -4,7 +4,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
+    <script src="https://unpkg.com/h264-mp4-encoder/embuild/dist/h264-mp4-encoder.web.js"></script>
+    
     <title>Watercolor Dreams Toolkit</title>
 
     <link rel="stylesheet" href="style.css" />
@@ -23,7 +26,6 @@
       </div>
     </div>
         
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
     <script src="./metamask-onboarding.bundle.js"></script>
     <script>
       
@@ -107,6 +109,7 @@
       
       const urlParams = new URLSearchParams(window.location.search);
       let ss = urlParams.get('size');
+      if (ss == null) ss = 1000;
       
       function pwa(s){let e=random(1),t=0;for(let o=0;o<s.length;o++){if(e<=s[o].p+t)return o;t+=s[o].p}return 0}
       function mc(s,e,t){let o=[];for(let r=0;r<1e3;r++){let i=map(r,0,1e3,0,2*PI),l=createVector(t*cos(i)+s,t*sin(i)+e);o.push(l)}return o}

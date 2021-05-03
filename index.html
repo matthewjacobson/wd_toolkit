@@ -20,7 +20,9 @@
       </div>
       <div class="dropdown">
         <button class="dropbtn">Your Watercolor Dreams ▼</button>
-        <div class="dropdown-content"></div>
+        <div class="dropdown-content">
+          <a>Test</a>
+        </div>
       </div>
     </div>
         
@@ -52,9 +54,8 @@
           if (assets[i].token_id.substring(0, 2) == "59") {
             let node = document.createElement("A");
             node.innerText = assets[i].token_id;
-            node.onClick = () => { httpGetAsync('https://api.artblocks.io/token/' + assets[i].token_id, updateToken); };
-            console.log(node);
             assetsList.appendChild(node);
+            node.onClick = () => { httpGetAsync('https://api.artblocks.io/token/' + assets[i].token_id, updateToken); };
           }
         }
       }

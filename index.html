@@ -42,7 +42,6 @@
       
       function updateToken(responseString) {
         let apiInfo = JSON.parse(responseString);
-        console.log(apiInfo);
         tokenData = {"hash": apiInfo["token hash"], "tokenId": apiInfo["tokenID"]};
       }
       

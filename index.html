@@ -44,6 +44,9 @@
       function updateToken(responseString) {
         let apiInfo = JSON.parse(responseString);
         tokenData = {"hash": apiInfo["token hash"], "tokenId": apiInfo["tokenID"]};
+        loop();
+        setupEnvironment();
+        isStarted = true;
       }
       
       function updateAssetList(responseString) {
@@ -54,9 +57,6 @@
             node.innerText = assets[i].token_id;
             node.onclick = () => {
               httpGetAsync('https://api.artblocks.io/token/' + assets[i].token_id, updateToken);
-              loop();
-              setupEnvironment();
-              isStarted = true;
             };
             assetsList.appendChild(node);
           }

@@ -44,7 +44,7 @@
       
       function updateAssetList(assets) {
         for (let asset in assets.assets) {
-          let node = document.createElement("a");
+          let node = document.createElement("A");
           node.innerText = asset.token_id;
           assetsList.appendChild(node);
         }

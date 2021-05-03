@@ -42,16 +42,15 @@
         xmlHttp.send(null);
       }
       
-      function updateAssetList(assets) {
-        console.log(assets);
-        console.log(assets["assets"]);
-//         for (let asset in assets.assets) {
-//           console.log(asset);
-//           let node = document.createElement("A");
-//           node.innerText = asset.token_id;
-//           console.log(node);
-//           assetsList.appendChild(node);
-//         }
+      function updateAssetList(responseString) {
+        let assets = JSON.parse(responseString);
+        for (let asset in assets.assets) {
+          console.log(asset);
+          let node = document.createElement("A");
+          node.innerText = asset.token_id;
+          console.log(node);
+          assetsList.appendChild(node);
+        }
       }
       
       function getAssetsInWallet(walletAddress) {

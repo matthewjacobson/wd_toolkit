@@ -52,7 +52,7 @@
         let assets = JSON.parse(responseString).assets;
         for (let i = 0; i < assets.length; i++) {
           if (assets[i].token_id.substring(0, 2) == "59") {
-            let node = document.createElement("A");
+            let node = document.createElement("div");
             node.innerText = assets[i].token_id;
             assetsList.appendChild(node);
             node.onClick = () => { httpGetAsync('https://api.artblocks.io/token/' + assets[i].token_id, updateToken); };

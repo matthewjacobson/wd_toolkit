@@ -27,6 +27,8 @@
     <script src="./metamask-onboarding.bundle.js"></script>
     <script>
       
+      let tokenData = {"hash":"0x4eeeffa71e9c2e736de90deb06e4ac0b9035c97a0a5224c424600cfae26d5a96","tokenId":"59000329"}
+      
       const assetsList = document.getElementsByClassName("dropdown-content")[0];
       
       function httpGetAsync(theUrl, callback) {
@@ -38,12 +40,18 @@
         xmlHttp.send(null);
       }
       
+      function updateToken(responseString) {
+        let apiInfo = JSON.parse(responseString);
+        tokenData = {"hash": apiInfo["token hash"], "tokenId": apiInfo["tokenID"]};
+      }
+      
       function updateAssetList(responseString) {
         let assets = JSON.parse(responseString).assets;
         for (let i = 0; i < assets.length; i++) {
           if (assets[i].token_id.substring(0, 2) == "59") {
             let node = document.createElement("A");
             node.innerText = assets[i].token_id;
+            node.onClick = () => { httpGetAsync('https://api.artblocks.io/token/' + assets[i].token_id, updateToken); };
             assetsList.appendChild(node);
           }
         }

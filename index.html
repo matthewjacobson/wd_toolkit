@@ -41,9 +41,11 @@
       function updateAssetList(responseString) {
         let assets = JSON.parse(responseString).assets;
         for (let i = 0; i < assets.length; i++) {
-          let node = document.createElement("A");
-          node.innerText = assets[i].token_id;
-          assetsList.appendChild(node);
+          if (assets[i].token_id.substring(0, 2) == "59") {
+            let node = document.createElement("A");
+            node.innerText = assets[i].token_id;
+            assetsList.appendChild(node);
+          }
         }
       }
       

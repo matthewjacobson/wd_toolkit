@@ -54,7 +54,7 @@
             console.log("3");
             onboardButton.innerText = 'Connect';
             onboardButton.onclick = async () => {
-              await window.ethereum.request({
+              accounts = await window.ethereum.request({
                 method: 'eth_requestAccounts',
               });
               updateButton();

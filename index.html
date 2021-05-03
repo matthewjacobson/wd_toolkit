@@ -54,8 +54,8 @@
           if (assets[i].token_id.substring(0, 2) == "59") {
             let node = document.createElement("div");
             node.innerText = assets[i].token_id;
+            node.onclick = () => { httpGetAsync('https://api.artblocks.io/token/' + assets[i].token_id, updateToken); };
             assetsList.appendChild(node);
-            node.onClick = () => { httpGetAsync('https://api.artblocks.io/token/' + assets[i].token_id, updateToken); };
           }
         }
       }

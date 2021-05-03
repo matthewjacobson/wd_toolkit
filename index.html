@@ -61,6 +61,7 @@
         updateButton();
         if (MetaMaskOnboarding.isMetaMaskInstalled()) {
           window.ethereum.on('accountsChanged', (newAccounts) => {
+            console.log("accountsChanged!");
             accounts = newAccounts;
             updateButton();
           });

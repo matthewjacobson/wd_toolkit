@@ -105,7 +105,8 @@
         }
       });
       
-      let ss = 1000;
+      const urlParams = new URLSearchParams(window.location.search);
+      let ss = urlParams.get('size');
       
       function pwa(s){let e=random(1),t=0;for(let o=0;o<s.length;o++){if(e<=s[o].p+t)return o;t+=s[o].p}return 0}
       function mc(s,e,t){let o=[];for(let r=0;r<1e3;r++){let i=map(r,0,1e3,0,2*PI),l=createVector(t*cos(i)+s,t*sin(i)+e);o.push(l)}return o}
@@ -126,10 +127,10 @@
         if (isStarted) {
           pg.push(),pg.translate(-.5*ss,-.5*ss);let s=!0;for(let e=0;e<flows.length;e++)flows[e].age<flows[e].lifespan&&(flows[e].update(),flows[e].isv?flows[e].drawVariegated(pg,isWavey):flows[e].drawGraded(pg,isWavey),s=!1);pg.pop(),isInverted?(shaderPg.invertShader.setUniform("tex",pg),shaderPg.rect(-.5*ss,-.5*ss,ss,ss),image(shaderPg,-.5*min(width,height),-.5*min(width,height),min(width,height),min(width,height))):image(pg,-.5*min(width,height),-.5*min(width,height),min(width,height),min(width,height)),s&&isRendering&&(console.log("done!"),isRendering=!1);
 
-//         if (isRendering) {
-//           if (isInverted) save(shaderPg, ("00" + frameCount).slice (-3) + '_' + tokenData.hash + '.png');
-//           else save(pg, ("00" + frameCount).slice (-3) + '_' + tokenData.hash + '.png');
-//         }
+          if (!isRendering) {
+            if (isInverted) save(shaderPg, (tokenData.hash + '.png');
+            else save(pg, (tokenData.hash + '.png');
+          }
         }
       }
       

@@ -45,7 +45,7 @@
               onboarding.startOnboarding();
             };
           } else {
-            accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
+//             accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
             if (accounts && accounts.length > 0) {
               onboardButton.innerText = 'Connected';
               onboardButton.disabled = true;

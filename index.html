@@ -38,6 +38,7 @@
 
         const updateButton = () => {
           if (!MetaMaskOnboarding.isMetaMaskInstalled()) {
+            console.log("1");
             onboardButton.innerText = 'Click here to install MetaMask!';
             onboardButton.onclick = () => {
               onboardButton.innerText = 'Onboarding in progress';
@@ -45,10 +46,12 @@
               onboarding.startOnboarding();
             };
           } else if (accounts && accounts.length > 0) {
+            console.log("2");
             onboardButton.innerText = 'Connected';
             onboardButton.disabled = true;
             onboarding.stopOnboarding();
           } else {
+            console.log("3");
             onboardButton.innerText = 'Connect';
             onboardButton.onclick = async () => {
               await window.ethereum.request({

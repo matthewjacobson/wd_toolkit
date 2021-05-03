@@ -33,7 +33,7 @@
       
       window.addEventListener('DOMContentLoaded', () => {
         const onboarding = new MetaMaskOnboarding();
-        const onboardButton = document.getElementById('onboard');
+        const onboardButton = document.getElementsByClassName("metamask")[0];
         let accounts;
 
         const updateButton = () => {

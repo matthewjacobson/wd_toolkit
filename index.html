@@ -109,7 +109,7 @@
       });
       
       const urlParams = new URLSearchParams(window.location.search);
-      let ss = urlParams.get('size');
+      let ss = parseInt(urlParams.get('size'));
       if (ss == null) ss = 1000;
       
       function pwa(s){let e=random(1),t=0;for(let o=0;o<s.length;o++){if(e<=s[o].p+t)return o;t+=s[o].p}return 0}

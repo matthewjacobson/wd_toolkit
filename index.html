@@ -112,6 +112,7 @@
       let ss = parseInt(urlParams.get('size'));
       if (ss == null || isNaN(ss)) ss = 1000;
       
+      
       function pwa(s){let e=random(1),t=0;for(let o=0;o<s.length;o++){if(e<=s[o].p+t)return o;t+=s[o].p}return 0}
       function mc(s,e,t){let o=[];for(let r=0;r<1e3;r++){let i=map(r,0,1e3,0,2*PI),l=createVector(t*cos(i)+s,t*sin(i)+e);o.push(l)}return o}
       function ml(s,e,t,o){return[createVector(s,e),createVector(t,o)]}function mr(s,e,t,o){return[createVector(s,e),createVector(s,o),createVector(t,o),createVector(t,e)]}
@@ -138,8 +139,12 @@
         })
       }
       
+      let flipPg;
       function setup(){noLoop(),createCanvas(windowWidth-5,windowHeight-100,WEBGL)}
       function setupEnvironment(){
+        flipPg = createGraphics(ss, ss, WEBGL);
+        flipPg.noStroke();
+        
         let s=parseInt(tokenData.hash.slice(0,16),16);
       function e(s){let e=0;e+=isMirrored?angleAmps[angleAmpIndex].a*PI*noise(abs(s.x-.5*ss)/(noiseScales[noiseScaleIndex].s*ss)+offset,abs(s.y-.5*ss)/(noiseScales[noiseScaleIndex].s*ss)+offset):angleAmps[angleAmpIndex].a*PI*noise(s.x/(noiseScales[noiseScaleIndex].s*ss)+offset,s.y/(noiseScales[noiseScaleIndex].s*ss)+offset),isRotated&&frameCount/flowLifespan>.5&&(e+=.5*PI);let t=1;return isStriped&&(t=floor(30*parseFloat(frameCount)/flowLifespan)%17==16?1:-1),createVector(t*flowStepSize*ss*cos(e),t*flowStepSize*ss*sin(e))}noiseSeed(s),randomSeed(s),isMirrored=random(1)<.2,isRotated=random(1)<.15,isStriped=random(1)<.1,isInverted=random(1)<.05,isWavey=random(1)<.01,colorSchemeIndex=pwa(colorSchemes),noiseScaleIndex=pwa(noiseScales),angleAmpIndex=pwa(angleAmps),layoutIndex=pwa(layouts),offset=random(-99999,99999),flows=[],(pg=createGraphics(ss,ss,WEBGL)).noStroke(),pg.blendMode(SUBTRACT),pg.background(242, 224, 201),(shaderPg=createGraphics(ss,ss,WEBGL)).noStroke(),shaderPg.invertShader=shaderPg.createShader(invertVert,invertFrag),shaderPg.shader(shaderPg.invertShader);let t=layouts[layoutIndex].l();colorIndex=floor(random(colorSchemes[colorSchemeIndex].palette.length));for(let s=0;s<t.length;s++)flows.push(new Flow(e,!1,colorSchemes[colorSchemeIndex],t[s],layouts[layoutIndex].c)),flows.push(new Flow(e,!0,colorSchemes[colorSchemeIndex],t[s],layouts[layoutIndex].c))}
       function draw(){
@@ -162,12 +167,19 @@
             
           } else {
             if (isInverted) {
-              shaderPg.loadPixels();
-              encoder.addFrameRgba(shaderPg.pixels);
+              flipPg.image(shaderPg, 0, 0, ss, ss, 0, ss, ss, -ss);
             } else {
-              pg.loadPixels();
-              encoder.addFrameRgba(pg.pixels);
+              flipPg.image(pg, 0, 0, ss, ss, 0, ss, ss, -ss);
             }
+            flipPg.loadPixels();
+            encoder.addFrameRgba(flipPg.pixels);
+//             if (isInverted) {
+//               shaderPg.loadPixels();
+//               encoder.addFrameRgba(shaderPg.pixels);
+//             } else {
+//               pg.loadPixels();
+//               encoder.addFrameRgba(pg.pixels);
+//             }
           }
         }
       }

@@ -52,6 +52,15 @@
         isStarted = true;
       }
       
+      function addAsset(tokenId) {
+        let node = document.createElement("div");
+        node.innerText = tokenId;
+        node.onclick = () => {
+          httpGetAsync('https://api.artblocks.io/token/' + tokenId, updateToken);
+        };
+        assetsList.appendChild(node);
+      }
+      
       function updateAssetList(responseString) {
         let assets = JSON.parse(responseString).assets;
         for (let i = 0; i < assets.length; i++) {
@@ -173,13 +182,6 @@
             }
             flipPg.loadPixels();
             encoder.addFrameRgba(flipPg.pixels);
-//             if (isInverted) {
-//               shaderPg.loadPixels();
-//               encoder.addFrameRgba(shaderPg.pixels);
-//             } else {
-//               pg.loadPixels();
-//               encoder.addFrameRgba(pg.pixels);
-//             }
           }
         }
       }

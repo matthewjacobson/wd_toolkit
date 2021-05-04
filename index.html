@@ -164,9 +164,6 @@
       let flipPg;
       function setup(){noLoop(),createCanvas(windowWidth-5,windowHeight-100,WEBGL)}
       function setupEnvironment(){
-        pg.remove();
-        shaderPg.remove();
-        flipPg.remove();
         
         flipPg = createGraphics(ss, ss, WEBGL);
         flipPg.noStroke();
@@ -191,6 +188,9 @@
             encoder.delete()
             preloadSetup()
             
+            pg.remove();
+            shaderPg.remove();
+            flipPg.remove();
           } else {
             if (isInverted) {
               flipPg.image(shaderPg, -0.5*ss, 0.5*ss, ss, -ss);

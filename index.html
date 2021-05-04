@@ -137,7 +137,7 @@
         })
       }
       
-      function setup(){noLoop(),createCanvas(windowWidth - 100,windowHeight - 100,WEBGL)}
+      function setup(){noLoop(),createCanvas(ss,ss,WEBGL)}
       function setupEnvironment(){let s=parseInt(tokenData.hash.slice(0,16),16);
       function e(s){let e=0;e+=isMirrored?angleAmps[angleAmpIndex].a*PI*noise(abs(s.x-.5*ss)/(noiseScales[noiseScaleIndex].s*ss)+offset,abs(s.y-.5*ss)/(noiseScales[noiseScaleIndex].s*ss)+offset):angleAmps[angleAmpIndex].a*PI*noise(s.x/(noiseScales[noiseScaleIndex].s*ss)+offset,s.y/(noiseScales[noiseScaleIndex].s*ss)+offset),isRotated&&frameCount/flowLifespan>.5&&(e+=.5*PI);let t=1;return isStriped&&(t=floor(30*parseFloat(frameCount)/flowLifespan)%17==16?1:-1),createVector(t*flowStepSize*ss*cos(e),t*flowStepSize*ss*sin(e))}noiseSeed(s),randomSeed(s),isMirrored=random(1)<.2,isRotated=random(1)<.15,isStriped=random(1)<.1,isInverted=random(1)<.05,isWavey=random(1)<.01,colorSchemeIndex=pwa(colorSchemes),noiseScaleIndex=pwa(noiseScales),angleAmpIndex=pwa(angleAmps),layoutIndex=pwa(layouts),offset=random(-99999,99999),flows=[],(pg=createGraphics(ss,ss,WEBGL)).noStroke(),pg.blendMode(SUBTRACT),pg.background(242, 224, 201),(shaderPg=createGraphics(ss,ss,WEBGL)).noStroke(),shaderPg.invertShader=shaderPg.createShader(invertVert,invertFrag),shaderPg.shader(shaderPg.invertShader);let t=layouts[layoutIndex].l();colorIndex=floor(random(colorSchemes[colorSchemeIndex].palette.length));for(let s=0;s<t.length;s++)flows.push(new Flow(e,!1,colorSchemes[colorSchemeIndex],t[s],layouts[layoutIndex].c)),flows.push(new Flow(e,!0,colorSchemes[colorSchemeIndex],t[s],layouts[layoutIndex].c))}
       function draw(){
@@ -159,7 +159,7 @@
             preload()
             
           } else {
-            encoder.addFrameRgba(pg.getImageData(0, 0, encoder.width, encoder.height).data);
+            encoder.addFrameRgba(drawingContext.getImageData(0, 0, encoder.width, encoder.height).data);
           }
         }
       }

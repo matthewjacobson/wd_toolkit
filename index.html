@@ -145,9 +145,9 @@
       function record() {
         HME.createH264MP4Encoder().then(async encoder => {
           encoder.outputFilename = 'test'
-          encoder.width = cwidth
-          encoder.height = cheight
-          encoder.frameRate = frate
+          encoder.width = ss
+          encoder.height = ss
+          encoder.frameRate = 30
           encoder.kbps = 50000 // video quality
           encoder.groupOfPictures = 10 // lower if you have fast actions.
           encoder.initialize()

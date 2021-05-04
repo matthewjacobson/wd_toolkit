@@ -163,9 +163,11 @@
           } else {
             if (isInverted) {
               shaderPg.loadPixels();
+              shaderPg.pixels.reverse();
               encoder.addFrameRgba(shaderPg.pixels);
             } else {
               pg.loadPixels();
+              pg.pixels.reverse();
               encoder.addFrameRgba(pg.pixels);
             }
           }

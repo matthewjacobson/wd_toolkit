@@ -149,11 +149,9 @@
 
       let encoder;
       function preloadSetup() {
-//         if (isRendering) {   
-//           pg.remove();
-//           shaderPg.remove();
-//           flipPg.remove();
-//         }
+        if (typeof pg !== 'undefined') pg.remove();
+        if (typeof shaderPg !== 'undefined') shaderPg.remove();
+        if (typeof flipPg !== 'undefined') flipPg.remove();
         HME.createH264MP4Encoder().then(enc => {
           encoder = enc
           encoder.outputFilename = tokenData.hash

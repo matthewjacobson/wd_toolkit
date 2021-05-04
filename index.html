@@ -150,6 +150,7 @@
       let encoder;
       function preloadSetup() {
 //         if (typeof canv !== 'undefined') canv.remove();
+        isRendering = true;
         if (typeof pg !== 'undefined') pg.remove();
         if (typeof shaderPg !== 'undefined') shaderPg.remove();
         if (typeof flipPg !== 'undefined') flipPg.remove();

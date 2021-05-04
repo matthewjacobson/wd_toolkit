@@ -22,7 +22,9 @@
       </div>
       <div class="dropdown">
         <button class="dropbtn">Your Watercolor Dreams ▼</button>
-        <div class="dropdown-content"></div>
+        <div class="dropdown-content">
+          <div onclick="randomToken()">random</div>
+        </div>
       </div>
     </div>
         
@@ -41,6 +43,17 @@
         }
         xmlHttp.open("GET", theUrl, true); // true for asynchronous 
         xmlHttp.send(null);
+      }
+      
+      function randomToken() {
+        let chars = "0123456789abcdef";
+        let result = '0x';
+        for (let i = 64; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+        tokenData = {"hash": result};
+        preloadSetup();
+        loop();
+        setupEnvironment();
+        isStarted = true;
       }
       
       function updateToken(responseString) {

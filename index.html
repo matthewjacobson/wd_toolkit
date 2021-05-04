@@ -167,9 +167,9 @@
             
           } else {
             if (isInverted) {
-              flipPg.image(shaderPg, 0, 0, ss, ss, 0, ss, ss, -ss);
+              flipPg.image(shaderPg, -0.5*ss, -0.5*ss, ss, ss, -0.5*ss, 0.5*ss, ss, -ss);
             } else {
-              flipPg.image(pg, 0, 0, ss, ss, 0, ss, ss, -ss);
+              flipPg.image(pg, -0.5*ss, -0.5*ss, ss, ss, -0.5*ss, 0.5*ss, ss, -ss);
             }
             flipPg.loadPixels();
             encoder.addFrameRgba(flipPg.pixels);

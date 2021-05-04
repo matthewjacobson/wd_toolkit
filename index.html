@@ -162,7 +162,9 @@
             preload()
             
           } else {
-            encoder.addFrameRgba(drawingContext.getImageData(0, 0, encoder.width, encoder.height).data);
+            pg.loadPixels();
+            encoder.addFrameRgba(pg.pixels);
+//             encoder.addFrameRgba(drawingContext.getImageData(0, 0, encoder.width, encoder.height).data);
           }
         }
       }

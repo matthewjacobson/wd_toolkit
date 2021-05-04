@@ -186,11 +186,12 @@
             anchor.download = encoder.outputFilename
             anchor.click()
             encoder.delete()
-            preloadSetup()
             
             pg.remove();
             shaderPg.remove();
             flipPg.remove();
+            
+            preloadSetup()
           } else {
             if (isInverted) {
               flipPg.image(shaderPg, -0.5*ss, 0.5*ss, ss, -ss);

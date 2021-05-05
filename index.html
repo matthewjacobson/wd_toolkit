@@ -135,7 +135,7 @@
       if (ss == null || isNaN(ss)) ss = 1000;
       let scale = parseFloat(urlParams.get('scale'));
       if (scale == null || isNaN(scale)) scale = 1.0;
-      let isVideoRecording = parseFloat(urlParams.get('r'));
+      let isVideoRecording = urlParams.get('r');
       if (isVideoRecording == null || isNaN(isVideoRecording)) isVideoRecording = false;
       
       

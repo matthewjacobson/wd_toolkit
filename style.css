@@ -1,14 +1,22 @@
-html, body {
+html, body, .container {
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 canvas {
   display: block;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 .navbar {
-  overflow: hidden;
+  background: red;
+  height: 50px;
+/*   overflow: hidden; */
   background-color: #333;
   font-family: Arial;
 }
@@ -69,10 +77,24 @@ canvas {
   background-color: #ddd;
 }
 
-.dropdown-content div:hover {
+.dropdown-codiv:hover {
   background-color: #ddd;
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+}
+.selectors {
+  border: 1px solid black;
+  flex: 1;
+  padding: 5px;
+}
+.sketch {
+  border: 1px solid black;
+  flex: 5;
 }

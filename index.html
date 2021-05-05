@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   
@@ -16,23 +17,55 @@
   
   <body>
     
-    <div class="navbar">
-      <div class="onboard">
-        <button class="metamask">Connect to MetaMask</button>
-      </div>
-      <div class="dropdown">
-        <button class="dropbtn">Your Watercolor Dreams ▼</button>
-        <div class="dropdown-content">
-          <div onclick="randomToken()">random</div>
+    <div class="container">
+      <div class="navbar">
+        <div class="onboard">
+          <button class="metamask">Connect to MetaMask</button>
         </div>
+        <div class="dropdown">
+          <button class="dropbtn">Your Watercolor Dreams ▼</button>
+          <div class="dropdown-content">
+            <div onclick="randomToken()">random</div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="selectors">
+          <br>
+          <label for="resolution">Resolution:</label><br>
+          <input type="text" id="resolution" name="resolution"><br><br>
+          <label for="scale">Scale:</label><br>
+          <input type="text" id="scale" name="scale"><br><br>
+          <label for="downloadImage">Download Image:</label><br>
+          <input type="checkbox" id="downloadImage" name="downloadImage"><br><br>
+          <label for="downloadVideo">Download Video:</label><br>
+          <input type="checkbox" id="downloadVideo" name="downloadVideo"><br><br>
+          <input type="submit" onclick="processSelectors()">
+        </div>
+        <div class="sketch" id="sketch"></div>
       </div>
     </div>
         
     <script src="./metamask-onboarding.bundle.js"></script>
     <script>
       
+      function processSelectors() {
+        if ("hash" in tokenData) {
+          ss = parseInt(document.getElementById("resolution").value);
+          scale = parseFloat(document.getElementById("scale").value);
+          isImageDownload = document.getElementById("downloadImage").checked;
+          isVideoRecording = document.getElementById("downloadVideo").checked;
+          preloadSetup();
+          loop();
+          setupEnvironment();
+          isStarted = true;
+        } else {
+          console.log("please select a token first");
+        }
+      }
+      
       let isStarted = false;
-      let tokenData;
+      let tokenData = {};
       
       const assetsList = document.getElementsByClassName("dropdown-content")[0];
       
@@ -130,12 +163,10 @@
         }
       });
       
-      const urlParams = new URLSearchParams(window.location.search);
-      let ss = parseInt(urlParams.get('size'));
-      if (ss == null || isNaN(ss)) ss = 1000;
-      let scale = parseFloat(urlParams.get('scale'));
-      if (scale == null || isNaN(scale)) scale = 1.0;
-      let isVideoRecording = parseInt(urlParams.get('r')) == 1 ? true : false;
+      let ss = 1000;
+      let scale = 1.0;
+      let isVideoRecording = false;
+      let isImageDownload = false;
       
       
       
@@ -172,8 +203,16 @@
         }
       }
       
+      var canvasDiv = document.getElementById('sketch');
+      var cWidth = canvasDiv.offsetWidth;
+      var cHeight = canvasDiv.offsetHeight;
+      
       let flipPg;
-      function setup(){noLoop(),createCanvas(windowWidth-5,windowHeight-100,WEBGL)}
+      function setup(){
+        noLoop();
+        var myCanvas = createCanvas(cWidth,cHeight,WEBGL);
+        myCanvas.parent("sketch");
+      }
       function setupEnvironment(){
         
         flipPg = createGraphics(ss, ss, WEBGL);
@@ -186,8 +225,10 @@
           pg.push(),pg.scale(1/scale,1/scale),pg.translate(-.5*ss,-.5*ss);let s=!0;for(let e=0;e<flows.length;e++)flows[e].age<flows[e].lifespan&&(flows[e].update(),flows[e].isv?flows[e].drawVariegated(pg,isWavey):flows[e].drawGraded(pg,isWavey),s=!1);pg.pop(),isInverted?(shaderPg.invertShader.setUniform("tex",pg),shaderPg.rect(-.5*ss,-.5*ss,ss,ss),image(shaderPg,-.5*min(width,height),-.5*min(width,height),min(width,height),min(width,height))):image(pg,-.5*min(width,height),-.5*min(width,height),min(width,height),min(width,height)),s&&isRendering&&(console.log("done!"),isRendering=!1);
 
           if (!isRendering) {
-            if (isInverted) save(shaderPg, tokenData.hash + '.png');
-            else save(pg, tokenData.hash + '.png');
+            if (isImageDownload) {
+              if (isInverted) save(shaderPg, tokenData.hash + '.png');
+              else save(pg, tokenData.hash + '.png');
+            }
             isStarted = false;
             
             if (isVideoRecording) {

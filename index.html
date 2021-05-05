@@ -64,8 +64,12 @@
         }
       }
       
-      let isStarted = false;
-      let tokenData = {};
+      let isStarted = true;
+      
+      let chars = "0123456789abcdef";
+      let result = '0x';
+      for (let i = 64; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+      let tokenData = {"hash": result};
       
       const assetsList = document.getElementsByClassName("dropdown-content")[0];
       
@@ -212,6 +216,7 @@
         noLoop();
         var myCanvas = createCanvas(cWidth,cHeight,WEBGL);
         myCanvas.parent("sketch");
+        setupEnvironment();
       }
       function setupEnvironment(){
         

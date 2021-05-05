@@ -135,6 +135,9 @@
       if (ss == null || isNaN(ss)) ss = 1000;
       let scale = parseFloat(urlParams.get('scale'));
       if (scale == null || isNaN(scale)) scale = 1.0;
+      let isVideoRecording = parseFloat(urlParams.get('r'));
+      if (isVideoRecording == null || isVideoRecording(scale)) isVideoRecording = false;
+      
       
       
       function pwa(s){let e=random(1),t=0;for(let o=0;o<s.length;o++){if(e<=s[o].p+t)return o;t+=s[o].p}return 0}
@@ -156,16 +159,18 @@
         if (typeof pg !== 'undefined') pg.remove();
         if (typeof shaderPg !== 'undefined') shaderPg.remove();
         if (typeof flipPg !== 'undefined') flipPg.remove();
-        HME.createH264MP4Encoder().then(enc => {
-          encoder = enc
-          encoder.outputFilename = tokenData.hash
-          encoder.width = ss
-          encoder.height = ss
-          encoder.frameRate = 30
-          encoder.kbps = 50000 // video quality
-          encoder.groupOfPictures = 10 // lower if you have fast actions.
-          encoder.initialize()
-        })
+        if (isVideoRecording) {
+          HME.createH264MP4Encoder().then(enc => {
+            encoder = enc
+            encoder.outputFilename = tokenData.hash
+            encoder.width = ss
+            encoder.height = ss
+            encoder.frameRate = 30
+            encoder.kbps = 50000 // video quality
+            encoder.groupOfPictures = 10 // lower if you have fast actions.
+            encoder.initialize()
+          })
+        }
       }
       
       let flipPg;
@@ -186,23 +191,27 @@
             else save(pg, tokenData.hash + '.png');
             isStarted = false;
             
-            encoder.finalize()
-            const uint8Array = encoder.FS.readFile(encoder.outputFilename);
-            const anchor = document.createElement('a')
-            anchor.href = URL.createObjectURL(new Blob([uint8Array], { type: 'video/mp4' }))
-            anchor.download = encoder.outputFilename
-            anchor.click()
-            encoder.delete()
+            if (isVideoRecording) {
+              encoder.finalize()
+              const uint8Array = encoder.FS.readFile(encoder.outputFilename);
+              const anchor = document.createElement('a')
+              anchor.href = URL.createObjectURL(new Blob([uint8Array], { type: 'video/mp4' }))
+              anchor.download = encoder.outputFilename
+              anchor.click()
+              encoder.delete()
+            }
             
             preloadSetup()
           } else {
-            if (isInverted) {
-              flipPg.image(shaderPg, -0.5*ss, 0.5*ss, ss, -ss);
-            } else {
-              flipPg.image(pg, -0.5*ss, 0.5*ss, ss, -ss);
+            if (isVideoRecording) {
+              if (isInverted) {
+                flipPg.image(shaderPg, -0.5*ss, 0.5*ss, ss, -ss);
+              } else {
+                flipPg.image(pg, -0.5*ss, 0.5*ss, ss, -ss);
+              }
+              flipPg.loadPixels();
+              encoder.addFrameRgba(flipPg.pixels);
             }
-            flipPg.loadPixels();
-            encoder.addFrameRgba(flipPg.pixels);
           }
         }
       }

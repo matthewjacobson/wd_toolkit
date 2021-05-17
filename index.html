@@ -472,6 +472,11 @@
         }
       }
       
+      function keyPressed() {
+        if (isInverted) save(shaderPg, frameCount + "_" + tokenData.hash + '.png');
+        else save(pg, frameCount + "_" + tokenData.hash + '.png');
+      }
+      
     </script>
     
   </body>

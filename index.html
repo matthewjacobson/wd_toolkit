@@ -473,8 +473,10 @@
       }
       
       function keyPressed() {
-        if (isInverted) save(shaderPg, frameCount + "_" + tokenData.hash + '.png');
-        else save(pg, frameCount + "_" + tokenData.hash + '.png');
+        if (keyCode == 32) {
+          if (isInverted) save(shaderPg, frameCount + "_" + tokenData.hash + '.png');
+          else save(pg, frameCount + "_" + tokenData.hash + '.png');
+        }
       }
       
     </script>
